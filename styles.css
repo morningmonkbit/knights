@@ -1092,7 +1092,7 @@ form button {
 
 .roster-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   gap: 52px 44px;
 }
 
@@ -1117,7 +1117,7 @@ form button {
 .roster-card h3 {
   margin: 22px 0 10px;
   color: #0e0707;
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   font-weight: 900;
   letter-spacing: -0.03em;
 }
@@ -1125,7 +1125,7 @@ form button {
 .roster-card p {
   margin: 0;
   color: #2d2320;
-  font-size: 1.05rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
