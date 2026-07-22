@@ -367,8 +367,9 @@ body {
   right: -28px;
   bottom: -40px;
   width: 190px;
-  border: 8px solid #0b0b0d;
+  border: 12px solid #0b0b0d;
   border-radius: 28px;
+  background-color: #0b0b0d;
 }
 
 /* Features */
@@ -599,7 +600,7 @@ body {
 
 /* Offense */
 .qb { left: 28%; top: 50%; transform: translate(-50%, -50%); }
-.c { left: 39%; top: 50%; transform: translate(-50%, -50%); }
+.c { left: 42%; top: 50%; transform: translate(-50%, -50%); }
 .wr1 { left: 42%; top: 24%; transform: translate(-50%, -50%); }
 .wr2 { left: 42%; top: 76%; transform: translate(-50%, -50%); }
 .rb { left: 22%; top: 64%; transform: translate(-50%, -50%); }
