@@ -272,9 +272,9 @@ body {
 }
 
 .hero-banner .divider {
-  width: 1px;
-  height: 24px;
-  background: rgba(255,255,255,.2);
+  width: 2px;
+  height: 34px;
+  background: rgba(255,255,255,.3);
 }
 
 /* Buttons */
@@ -387,6 +387,246 @@ body {
 .feature-grid h3 {
   color: var(--gold);
   text-transform: uppercase;
+}
+
+/* Playbook / Field */
+.playbook {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(196, 161, 95, 0.18), transparent 30%),
+    linear-gradient(180deg, #0b0b0d, #160606);
+}
+
+.playbook .section-title {
+  max-width: 900px;
+  margin: 0 auto 54px;
+  text-align: center;
+}
+
+.field {
+  position: relative;
+  min-height: 560px;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: visible;
+  border: none;
+  border-radius: 34px;
+  background:
+    linear-gradient(
+      90deg,
+      #330507 0 14%,
+      #1d4327 14% 22%,
+      #142b1a 22% 78%,
+      #1d4327 78% 86%,
+      #330507 86% 100%
+    );
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.45);
+}
+
+.field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 4px solid var(--sand);
+  border-radius: 34px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, transparent 49.8%, rgba(255,255,255,.75) 49.8% 50.2%, transparent 50.2%),
+
+    linear-gradient(90deg,
+      transparent 14%, var(--sand) 14% 14.35%, transparent 14.35%,
+      transparent 22%, var(--sand) 22% 22.35%, transparent 22.35%,
+      transparent 29.14%, var(--sand) 29.14% 29.49%, transparent 29.49%,
+      transparent 36.28%, var(--sand) 36.28% 36.63%, transparent 36.63%,
+      transparent 43.42%, var(--sand) 43.42% 43.77%, transparent 43.77%,
+      transparent 56.23%, var(--sand) 56.23% 56.58%, transparent 56.58%,
+      transparent 63.37%, var(--sand) 63.37% 63.72%, transparent 63.72%,
+      transparent 70.51%, var(--sand) 70.51% 70.86%, transparent 70.86%,
+      transparent 78%, var(--sand) 78% 78.35%, transparent 78.35%,
+      transparent 86%, var(--sand) 86% 86.35%, transparent 86.35%
+    );
+}
+
+.endzone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14%;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: #fff;
+  font-size: 1.65rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  writing-mode: vertical-rl;
+  z-index: 2;
+}
+
+.endzone.left {
+  left: 0;
+  border-radius: 0 34px 34px 0;
+  transform: rotate(180deg);
+}
+
+.endzone.right {
+  right: 0;
+  border-radius: 0 34px 34px 0;
+}
+
+.field .yard-line::before,
+.field .yard-line::after {
+  content: "No Running Zone";
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%);
+}
+
+.field .yard-line::before {
+  left: 16.5%;
+}
+
+.field .yard-line::after {
+  right: 16.5%;
+}
+
+.yard-numbers span {
+  position: absolute;
+  z-index: 2;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.yard-numbers.top span {
+  top: 38px;
+}
+
+.yard-numbers.bottom span {
+  bottom: 38px;
+}
+
+.field-player {
+  position: absolute;
+  z-index: 10;
+  width: 58px;
+  height: 58px;
+  border: 3px solid var(--gold);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red2), var(--red));
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.field-player.offense {
+  background: linear-gradient(135deg, var(--red2), var(--red));
+  border-color: var(--gold);
+}
+
+.field-player.defense {
+  background: linear-gradient(135deg, #2b67d1, #163b85);
+  border-color: #8fc4ff;
+}
+
+.field-player:hover,
+.field-player:focus {
+  z-index: 30;
+  transform: translate(-50%, -50%) scale(1.14);
+  background: linear-gradient(135deg, var(--gold), #8f6d30);
+  outline: none;
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.45);
+}
+
+.field-player span {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 14px);
+  width: 230px;
+  padding: 16px;
+  border: 1px solid rgba(196, 161, 95, 0.4);
+  border-radius: 18px;
+  background: rgba(10, 10, 10, 0.92);
+  color: #eadfc6;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(8px);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.field-player span strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.field-player:hover span,
+.field-player:focus span {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Offense */
+.qb { left: 28%; top: 50%; transform: translate(-50%, -50%); }
+.c { left: 39%; top: 50%; transform: translate(-50%, -50%); }
+.wr1 { left: 42%; top: 24%; transform: translate(-50%, -50%); }
+.wr2 { left: 42%; top: 76%; transform: translate(-50%, -50%); }
+.rb { left: 22%; top: 64%; transform: translate(-50%, -50%); }
+
+/* Defense */
+.rusher { left: 52%; top: 50%; transform: translate(-50%, -50%); }
+.cb1 { left: 64%; top: 24%; transform: translate(-50%, -50%); }
+.cb2 { left: 64%; top: 76%; transform: translate(-50%, -50%); }
+.lb { left: 68%; top: 50%; transform: translate(-50%, -50%); }
+.s { left: 80%; top: 50%; transform: translate(-50%, -50%); }
+
+@media (max-width: 700px) {
+  .field {
+    min-height: 620px;
+  }
+
+  .endzone {
+    width: 54px;
+    font-size: 0.75rem;
+  }
+
+  .field-player {
+    width: 48px;
+    height: 48px;
+    font-size: 0.8rem;
+  }
+
+  .field-player span {
+    width: 190px;
+    font-size: 0.82rem;
+  }
 }
 
 /* Training */
