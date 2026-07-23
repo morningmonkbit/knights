@@ -872,6 +872,169 @@ body {
   margin-top: 20px;
 }
 
+/* Results Marquee */
+.results-marquee {
+  position: relative;
+  z-index: 1;
+  width: calc(100% + 2 * clamp(20px, 6vw, 90px));
+  margin-top: 70px;
+  margin-left: calc(-1 * clamp(20px, 6vw, 90px));
+  margin-bottom: -110px;
+  overflow: hidden;
+  padding: 24px 0 70px;
+}
+
+.results-marquee-window {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 12px 0;
+  border-top: 1px solid rgba(196, 161, 95, 0.28);
+  border-bottom: 1px solid rgba(196, 161, 95, 0.28);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.results-marquee-window::before,
+.results-marquee-window::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: clamp(35px, 7vw, 130px);
+  pointer-events: none;
+}
+
+.results-marquee-window::before {
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(18, 4, 5, 0.95),
+    transparent
+  );
+}
+
+.results-marquee-window::after {
+  right: 0;
+  background: linear-gradient(
+    270deg,
+    rgba(23, 4, 5, 0.95),
+    transparent
+  );
+}
+
+.results-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: results-marquee 50s linear infinite;
+}
+
+/* Eine automatisch erzeugte Kopie aller Ergebnisse */
+.results-marquee-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 15px;
+  padding: 0 38px;
+
+  color: var(--white);
+  font-family: Anton, Impact, sans-serif;
+  font-size: clamp(1rem, 1vw, 1.5rem);
+  line-height: 1;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.result-item::after {
+  content: "⚔";
+  margin-left: 38px;
+  color: var(--gold);
+  font-size: 0.85em;
+}
+
+.result-team {
+  color: var(--white);
+}
+
+.result-item .winner {
+  color: var(--gold);
+}
+
+.result-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+}
+
+.result-score strong {
+  color: var(--gold);
+  font-size: 1.2em;
+}
+
+/*
+  Da die beiden Gruppen identisch sind, entspricht -50 %
+  exakt der Breite einer Gruppe.
+  Die Bewegung läuft dadurch nahtlos von links nach rechts.
+*/
+@keyframes results-marquee {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Animation beim Hover pausieren */
+.results-marquee-window:hover .results-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Barrierefreiheit */
+@media (prefers-reduced-motion: reduce) {
+  .results-marquee-track {
+    animation: none;
+    transform: none;
+  }
+
+  .results-marquee-window {
+    overflow-x: auto;
+  }
+
+  .results-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .results-marquee {
+    padding-bottom: 60px;
+  }
+
+  .results-marquee-header {
+    margin-bottom: 28px;
+  }
+
+  .result-item {
+    gap: 10px;
+    padding: 0 24px;
+  }
+
+  .result-item::after {
+    margin-left: 24px;
+  }
+}
+
 /* Gallery */
 .gallery {
   position: relative;
