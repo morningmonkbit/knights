@@ -881,7 +881,7 @@ body {
   margin-left: calc(-1 * clamp(20px, 6vw, 90px));
   margin-bottom: -110px;
   overflow: hidden;
-  padding: 24px 0 70px;
+  padding: 0 0 70px;
 }
 
 .results-marquee-window {
@@ -1175,7 +1175,7 @@ body {
 .signup {
   background:
     linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.84)),
-    url("assets/background.png") center / cover fixed;
+    url("assets/backgorund_1920x1080.jpg") center / cover fixed;
 }
 
 .signup-card {
