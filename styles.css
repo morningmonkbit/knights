@@ -1294,22 +1294,137 @@ form button {
   text-transform: uppercase;
 }
 
-/* Footer */
-.footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 30px clamp(20px, 6vw, 90px);
-  background: #080808;
+/* ===========================
+   FOOTER
+=========================== */
+
+.footer{
+
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at left center,
+            rgba(196,161,95,.10),
+            transparent 35%),
+        linear-gradient(
+            180deg,
+            #170707 0%,
+            #0b0b0d 45%,
+            #050505 100%
+        );
+    border-top:1px solid rgba(196,161,95,.22);
 }
 
-.footer a {
-  color: var(--gold);
+.footer{
+    display:block;
 }
 
-.footer-legal-links {
-  display: flex;
-  gap: 22px;
+.footer-content{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:80px;
+    padding:
+        70px
+        clamp(40px,5vw,90px)
+        40px;
+    align-items:start;
+}
+
+.footer-column{
+    display:flex;
+    flex-direction:column;
+    align-items:left;
+    text-align:left;
+    gap:18px;
+}
+
+.footer-column h3{
+    margin:0 0 10px;
+    color:var(--gold);
+    font-size:.82rem;
+    font-weight:900;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+}
+
+.footer-column a{
+    color:white;
+    text-decoration:none;
+    font-weight:700;
+    transition:.25s;
+}
+
+.footer-column a:hover{
+    color:var(--gold);
+}
+
+.footer-logo{
+    width:220px;
+    height:auto;
+    transition:.35s;
+}
+
+
+.league-logos{
+    display:flex;
+    justify-content:left;
+    align-items:left;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.league-logos img{
+    width:auto;
+    height:85px;
+    transition:.3s;
+    object-fit: contain;
+}
+
+.footer-bottom{
+    grid-column:1/-1;
+    padding:25px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,.08);
+    color:#b8b0a0;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-size:.8rem;
+}
+
+@media(max-width:1000px){
+
+.footer{
+
+grid-template-columns:1fr;
+
+}
+
+.footer-knight{
+
+display:none;
+
+}
+
+.footer-content{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:700px){
+
+.footer-content{
+
+grid-template-columns:1fr;
+
+gap:40px;
+
+}
+
 }
 
 /* Reveal animations */
