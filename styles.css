@@ -1,6 +1,7 @@
 :root {
   --red: #8c070a;
   --red2: #c4161c;
+  --reddark: #330507;
   --gold: #c4a15f;
   --sand: #e6dcc2;
   --black: #0b0b0d;
@@ -241,7 +242,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 28px;
-  padding: 28px 44px;
+  padding: 28px 100px;
 
   background: linear-gradient(
     90deg,
@@ -273,12 +274,6 @@ body {
 
 .hero-banner a:hover {
   color: var(--gold);
-}
-
-.hero-banner .divider {
-  width: 2px;
-  height: 34px;
-  background: rgba(255,255,255,.3);
 }
 
 /* Buttons */
@@ -1173,47 +1168,224 @@ body {
 
 /* Signup */
 .signup {
+  position: relative;
+  overflow: hidden;
+
   background:
-    linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.84)),
+    linear-gradient(
+      rgba(10, 10, 10, 0.68),
+      rgba(10, 10, 10, 0.9)
+    ),
     url("assets/backgorund_1920x1080.jpg") center / cover fixed;
 }
 
+
+/* leichter Gold-Glow im Hintergrund */
+.signup::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(196, 161, 95, 0.16),
+      transparent 68%
+    );
+
+  pointer-events: none;
+}
+
+
+/* Card */
 .signup-card {
-  max-width: 780px;
-  margin: auto;
+  position: relative;
+  z-index: 1;
+
+  max-width: 1250px;
+  margin: 0 auto;
+
+  padding: clamp(38px, 6vw, 80px);
+
+  background: rgba(255, 255, 255, 0.055);
+
+  border: 1px solid rgba(196, 161, 95, 0.28);
+  border-radius: 30px;
+
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 35px 90px rgba(0, 0, 0, 0.38);
+
+  text-align: center;
 }
 
-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 24px;
+
+/* Überschrift */
+.signup-card h2 {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-label {
+
+/* Beschreibung */
+.signup-text {
+  max-width: 650px;
+  margin: 0 auto;
+
+  color: #ded4bf;
+  font-size: 1.1rem;
+  line-height: 1.75;
+}
+
+
+/* Kontakte */
+.signup-contact {
+  max-width: 1020px;
+
+  margin:
+    clamp(38px, 5vw, 60px)
+    auto
+    0;
+
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  border-top: 1px solid rgba(196, 161, 95, 0.25);
+}
+
+
+/* einzelner Link */
+.signup-contact-link {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
   gap: 8px;
+
+  padding: 34px 32px;
+
+  color: var(--white);
+  text-decoration: none;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+
+/* Trennlinie */
+.signup-contact-link:first-child {
+  border-right: 1px solid rgba(196, 161, 95, 0.25);
+}
+
+
+/* Hover */
+.signup-contact-link:hover {
+  background: rgba(196, 161, 95, 0.07);
+}
+
+
+/* kleine Überschrift */
+.signup-contact-label {
   color: var(--gold);
+
+  font-size: 0.8rem;
   font-weight: 900;
+
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
-input,
-select,
-textarea {
-  width: 100%;
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.42);
-  border: 1px solid rgba(196, 161, 95, 0.35);
-  border-radius: 16px;
-  color: #fff;
-  font: inherit;
+
+/* eigentlicher Kontakt */
+.signup-contact-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: var(--white);
+
+  font-family: Anton, Impact, sans-serif;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+
+  letter-spacing: 0.02em;
+
+  transition: color 0.25s ease;
 }
 
-textarea,
-label:nth-child(4),
-form button {
-  grid-column: 1 / -1;
+
+.signup-contact-link:hover .signup-contact-main {
+  color: var(--gold);
+}
+
+
+/* Pfeil */
+.signup-arrow {
+  display: inline-block;
+
+  color: var(--gold);
+
+  transition:
+    transform 0.3s ease;
+}
+
+
+.signup-contact-link:hover .signup-arrow {
+  transform: translate(5px, -5px);
+}
+
+
+/* Beschreibung unter dem Kontakt */
+.signup-contact-description {
+  color: #bfb39a;
+
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+
+/* Mobile */
+@media (max-width: 700px) {
+
+  .signup {
+    background-attachment: scroll;
+  }
+
+  .signup-card {
+    padding: 38px 22px;
+    text-align: left;
+  }
+
+  .signup-card h2 {
+    margin-left: 0;
+  }
+
+  .signup-text {
+    margin-left: 0;
+  }
+
+  .signup-contact {
+    grid-template-columns: 1fr;
+  }
+
+  .signup-contact-link {
+    padding: 28px 4px;
+  }
+
+  .signup-contact-link:first-child {
+    border-right: none;
+    border-bottom: 1px solid rgba(196, 161, 95, 0.25);
+  }
+
 }
 
 /* Roster */
@@ -1560,5 +1732,582 @@ gap:40px;
 
   .roster-card img {
     aspect-ratio: 1.25 / 1;
+  }
+}
+
+/* =========================================================
+   PAGE TRANSITION / LOADING SCREEN
+========================================================= */
+
+body.is-loading {
+  overflow: hidden;
+}
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+  pointer-events: all;
+  visibility: visible;
+
+  background: var(--reddark);
+
+  transform: translateX(0);
+
+  will-change: transform, visibility;
+}
+
+/* =========================================================
+   HINTERGRUND
+========================================================= */
+
+.page-transition__background {
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(196, 161, 95, 0.22),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 80% 50%,
+      rgba(0, 0, 0, 0.32),
+      transparent 42%
+    ),
+    linear-gradient(
+      120deg,
+      #560406 0%,
+      var(--reddark) 42%,
+      var(--reddark) 70%,
+      #5b0306 100%
+    );
+}
+
+.page-transition__background::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.28),
+      transparent 25%,
+      transparent 75%,
+      rgba(0, 0, 0, 0.3)
+    );
+}
+
+/* =========================================================
+   INHALT
+========================================================= */
+
+.page-transition__content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+}
+
+/* =========================================================
+   TITEL
+========================================================= */
+
+.page-transition__title-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: max-content;
+  max-width: calc(100vw - 40px);
+
+  overflow: hidden;
+
+  padding: 30px 40px;
+
+  transform: translate(-50%, -50%);
+}
+
+.page-transition__title {
+  display: block;
+
+  padding: 12px 8px;
+
+  color: var(--white);
+
+  font-family: Anton, Impact, sans-serif;
+  font-size: clamp(3rem, 9vw, 9rem);
+  line-height: 1;
+  letter-spacing: 0.025em;
+
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  opacity: 0;
+
+  transform: translateX(-70px);
+
+  clip-path: inset(0 100% 0 0);
+
+  text-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.25),
+    0 0 45px rgba(196, 161, 95, 0.16);
+
+  will-change: opacity, transform, clip-path;
+}
+
+.page-transition__title strong {
+  color: var(--gold);
+  font: inherit;
+}
+
+/* =========================================================
+   FOOTBALL
+========================================================= */
+
+/*
+  Der Wrapper steuert ausschließlich die gleichmäßige
+  Bewegung von links nach rechts.
+*/
+.page-transition__football-wrap {
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  width: clamp(140px, 18vw, 300px);
+
+  transform: translateX(-140%);
+
+  will-change: transform;
+}
+
+/*
+  Das Football-Bild steuert ausschließlich die vertikale
+  Flugkurve. Dadurch bleibt die horizontale Geschwindigkeit
+  durchgehend konstant.
+*/
+.page-transition__football {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  transform: translateY(90px) rotate(6deg);
+
+  filter:
+    drop-shadow(0 22px 22px rgba(0, 0, 0, 0.38))
+    drop-shadow(0 0 18px rgba(196, 161, 95, 0.18));
+
+  will-change: transform;
+}
+
+/* =========================================================
+   GOLDENE LINIE
+========================================================= */
+
+.page-transition__line {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  z-index: 1;
+
+  width: 0;
+  height: 3px;
+
+  border-radius: 999px;
+
+  opacity: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(196, 161, 95, 0.35),
+      var(--gold)
+    );
+
+  transform: translateY(-50%);
+
+  box-shadow:
+    0 0 18px rgba(196, 161, 95, 0.35);
+
+  will-change: width, opacity;
+}
+
+/* =========================================================
+   INTRO-ANIMATION
+========================================================= */
+
+/*
+  Gleichmäßige horizontale Bewegung.
+  linear verhindert jegliches Abbremsen.
+*/
+.page-transition.is-entering .page-transition__football-wrap {
+  animation:
+    transition-football-x
+    1.75s
+    linear
+    0.15s
+    forwards;
+}
+
+/*
+  Unabhängige vertikale Flugkurve.
+*/
+.page-transition.is-entering .page-transition__football {
+  animation:
+    transition-football-y
+    1.75s
+    linear
+    0.15s
+    forwards;
+}
+
+.page-transition.is-entering .page-transition__title {
+  animation:
+    transition-title-enter
+    0.72s
+    cubic-bezier(0.2, 0.75, 0.25, 1)
+    0.66s
+    forwards;
+}
+
+.page-transition.is-entering .page-transition__line {
+  animation:
+    transition-line-enter
+    0.75s
+    ease-out
+    0.36s
+    forwards;
+}
+
+.page-transition.is-entering {
+  animation:
+    transition-screen-leave
+    0.9s
+    cubic-bezier(0.76, 0, 0.24, 1)
+    2.05s
+    forwards;
+}
+
+/* =========================================================
+   OUTRO-ANIMATION BEIM SEITENWECHSEL
+========================================================= */
+
+.page-transition.is-leaving {
+  visibility: visible;
+  pointer-events: all;
+
+  animation:
+    transition-screen-enter
+    0.72s
+    cubic-bezier(0.76, 0, 0.24, 1)
+    forwards;
+}
+
+.page-transition.is-leaving .page-transition__title {
+  animation:
+    transition-title-leave
+    0.52s
+    cubic-bezier(0.2, 0.75, 0.25, 1)
+    0.28s
+    forwards;
+}
+
+.page-transition.is-leaving .page-transition__football-wrap {
+  animation:
+    transition-football-leave-x
+    0.85s
+    linear
+    0.08s
+    forwards;
+}
+
+.page-transition.is-leaving .page-transition__football {
+  animation:
+    transition-football-leave-y
+    0.85s
+    ease-out
+    0.08s
+    forwards;
+}
+
+/* =========================================================
+   KEYFRAMES – FOOTBALL
+========================================================= */
+
+/*
+  Ausschließlich horizontale Bewegung.
+  Dadurch kann der Ball auf seiner Flugkurve niemals
+  horizontal stoppen.
+*/
+@keyframes transition-football-x {
+  from {
+    transform: translateX(-140%);
+  }
+
+  to {
+    transform: translateX(calc(100vw + 30%));
+  }
+}
+
+/*
+  Vertikale Flugkurve.
+
+  Start:  90px unterhalb der Mitte
+  Höhe:  -90px oberhalb der Mitte
+  Ende:   45px unterhalb der Mitte
+*/
+@keyframes transition-football-y {
+  0% {
+    transform: translateY(90px) rotate(6deg);
+    animation-timing-function:
+      cubic-bezier(0.15, 0.65, 0.35, 1);
+  }
+
+  55% {
+    transform: translateY(-90px) rotate(6deg);
+    animation-timing-function:
+      cubic-bezier(0.65, 0, 0.85, 0.35);
+  }
+
+  100% {
+    transform: translateY(45px) rotate(6deg);
+  }
+}
+
+/*
+  Football beim Seitenwechsel.
+*/
+@keyframes transition-football-leave-x {
+  from {
+    transform: translateX(-140%);
+  }
+
+  to {
+    transform: translateX(calc(52vw - 50%));
+  }
+}
+
+@keyframes transition-football-leave-y {
+  from {
+    transform: translateY(70px) rotate(6deg);
+  }
+
+  to {
+    transform: translateY(-30px) rotate(6deg);
+  }
+}
+
+/* =========================================================
+   KEYFRAMES – TITEL UND LINIE
+========================================================= */
+
+@keyframes transition-title-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(-70px);
+    clip-path: inset(0 100% 0 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes transition-line-enter {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    width: 50vw;
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   KEYFRAMES – SCREEN
+========================================================= */
+
+@keyframes transition-screen-leave {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  99% {
+    visibility: visible;
+    transform: translateX(100%);
+  }
+
+  100% {
+    visibility: hidden;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes transition-screen-enter {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes transition-title-leave {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+    clip-path: inset(0 100% 0 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+  .page-transition__title-wrap {
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  .page-transition__title {
+    font-size: clamp(2.7rem, 15vw, 5rem);
+    line-height: 0.95;
+    white-space: normal;
+  }
+
+  .page-transition__title strong {
+    display: block;
+  }
+
+  .page-transition__football-wrap {
+    width: clamp(120px, 42vw, 190px);
+  }
+
+  .page-transition__line {
+    height: 2px;
+  }
+
+  @keyframes transition-football-y {
+    0% {
+      transform: translateY(75px) rotate(6deg);
+      animation-timing-function:
+        cubic-bezier(0.15, 0.65, 0.35, 1);
+    }
+
+    55% {
+      transform: translateY(-65px) rotate(6deg);
+      animation-timing-function:
+        cubic-bezier(0.65, 0, 0.85, 0.35);
+    }
+
+    100% {
+      transform: translateY(35px) rotate(6deg);
+    }
+  }
+}
+
+/* =========================================================
+   REDUZIERTE BEWEGUNG
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition.is-entering {
+    animation:
+      transition-screen-leave-reduced
+      0.35s
+      ease
+      0.45s
+      forwards;
+  }
+
+  .page-transition.is-entering .page-transition__football-wrap,
+  .page-transition.is-entering .page-transition__football,
+  .page-transition.is-entering .page-transition__line {
+    animation: none;
+  }
+
+  .page-transition.is-entering .page-transition__title {
+    animation:
+      transition-title-reduced
+      0.25s
+      ease
+      forwards;
+  }
+
+  .page-transition.is-leaving {
+    animation:
+      transition-screen-enter
+      0.3s
+      ease
+      forwards;
+  }
+
+  .page-transition.is-leaving .page-transition__football-wrap,
+  .page-transition.is-leaving .page-transition__football {
+    animation: none;
+  }
+
+  .page-transition.is-leaving .page-transition__title {
+    animation:
+      transition-title-reduced
+      0.2s
+      ease
+      forwards;
+  }
+}
+
+@keyframes transition-title-reduced {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+}
+
+@keyframes transition-screen-leave-reduced {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
   }
 }

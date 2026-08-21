@@ -10,7 +10,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="is-loading">
+
+  <!-- Seitenübergang / Loading Screen -->
+  <div
+    class="page-transition"
+    id="page-transition"
+    aria-hidden="true"
+  >
+    <div class="page-transition__background"></div>
+
+    <div class="page-transition__content">
+      <div class="page-transition__title-wrap">
+        <span class="page-transition__title">
+          Sassenberg
+          <strong>Knights</strong>
+        </span>
+      </div>
+
+      <div class="page-transition__football-wrap">
+        <img
+          class="page-transition__football"
+          src="assets/football-knights-transitionA.png"
+          alt=""
+        >
+      </div>
+    </div>
+
+    <div class="page-transition__line"></div>
+  </div>
   <div class="noise"></div>
   <header class="site-header" id="top">
     <a class="brand" href="#top" aria-label="Sassenberg Knights Startseite">
@@ -46,12 +74,6 @@
         <h1>We are the<br><span>Knights.</span></h1>
         <p class="lead">Schnell, taktisch, kontaktarm: Flag Football in Sassenberg für alle, die Teamgeist, Tempo und Touchdowns lieben.</p>
         <div class="hero-banner">
-          <a href="#anmeldung">
-            Jetzt Probetraining sichern
-          </a>
-
-          <span class="divider"></span>
-
           <a href="#spiele">
             Kommende Spieltage
           </a>
@@ -485,16 +507,57 @@
 
     <section class="section signup" id="anmeldung">
       <div class="signup-card reveal">
+
         <p class="eyebrow">Werde ein Knight</p>
-        <h2>Anmeldung zum Probetraining</h2>
-        <p>Trag dich ein und wir melden uns bei dir.</p>
-        <form action="mailto:info@sassenberg-knights.de" method="post" enctype="text/plain">
-          <label>Name<input name="Name" required placeholder="Dein Name"></label>
-          <label>E-Mail<input type="email" name="Email" required placeholder="dein@email.de"></label>
-          <label>Erfahrung<select name="Erfahrung"><option>Rookie</option><option>Schon gespielt</option><option>Erfahren</option></select></label>
-          <label>Nachricht<textarea name="Nachricht" rows="4" placeholder="Kurz zu dir…"></textarea></label>
-          <button class="btn primary" type="submit">Anfrage senden</button>
-        </form>
+
+        <h2>
+          Interesse?<br>
+          Schreib uns.
+        </h2>
+
+        <p class="signup-text">
+          Du möchtest Flag Football ausprobieren oder einfach mal beim Training
+          vorbeischauen? Dann melde dich unkompliziert bei uns.
+        </p>
+
+        <div class="signup-contact">
+
+          <a
+            class="signup-contact-link signup-instagram"
+            href="https://www.instagram.com/sassenberg_knights/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="signup-contact-label">Instagram</span>
+
+            <span class="signup-contact-main">
+              @sassenberg_knights
+              <span class="signup-arrow">↗</span>
+            </span>
+
+            <span class="signup-contact-description">
+              Schreib uns einfach eine Nachricht
+            </span>
+          </a>
+
+          <a
+            class="signup-contact-link"
+            href="mailto:info@sassenberg-knights.de"
+          >
+            <span class="signup-contact-label">E-Mail</span>
+
+            <span class="signup-contact-main">
+              info@sassenberg-knights.de
+              <span class="signup-arrow">↗</span>
+            </span>
+
+            <span class="signup-contact-description">
+              Kontaktiere uns per Mail
+            </span>
+          </a>
+
+        </div>
+
       </div>
     </section>
   </main>
@@ -509,7 +572,7 @@
       </div>
       <div class="footer-column">
         <h3>Sponsor</h3>
-        <a href="https://www.kieserling.com/" target="_blank">
+        <a href="https://kieserling-personal.de/" target="_blank">
           <img
             class="footer-logo sponsor-logo"
             src="assets/footer/Kieserling_Logo_3c_RZ.png"
