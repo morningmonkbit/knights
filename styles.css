@@ -2363,7 +2363,7 @@ img { max-width: 100%; }
   .feature-grid { grid-template-columns: 1fr; }
   .roster::before {background: radial-gradient(circle at 88% 8%, rgba(196, 161, 95, 0.24), transparent 28%);
 }
-  .roster-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 14px; }
+  .roster-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 14px; }
   .roster-card img { aspect-ratio: 1 / 1.18; }
   .roster-card h3 { margin-top: 14px; }
 
