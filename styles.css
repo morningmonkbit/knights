@@ -2430,6 +2430,19 @@ img { max-width: 100%; }
   .field-scroll::-webkit-scrollbar {
     display: none;
   }
+  .field .yard-line::before,
+  .field .yard-line::after {
+    content: "No Running Zone";
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    writing-mode: vertical-rl;
+    transform: translateY(-50%);
+  }
   .playbook .field { margin-left: 0; }
   .playbook::after { content: "← Spielfeld horizontal bewegen →"; display: block; margin-top: 14px; color: #bfb39a; text-align: center; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
   .playbook { overflow-x: auto; overscroll-behavior-inline: contain; }
