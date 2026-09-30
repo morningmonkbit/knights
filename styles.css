@@ -2435,10 +2435,10 @@ img { max-width: 100%; }
   .playbook { overflow-x: auto; overscroll-behavior-inline: contain; }
   .field-player { width: 48px; height: 48px; font-size: .75rem; }
   .field-player span { width: 180px; }
-  
+  .training h2 { font-size: clamp(2.6rem, 5.9vw, 6.7rem); }
   .training-cards { grid-template-columns: 1fr; }
   .training-cards article:last-child { grid-column: auto; }
-  .training-cards strong { font-size: clamp(2.6rem, 13vw, 4rem); }
+  .training-cards strong { font-size: clamp(2.4rem, 5.7vw, 4rem); }
   .next-game-card { border-radius: 24px; }
   .game-image { min-height: 0; }
   .game-image img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
