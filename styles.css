@@ -1872,46 +1872,6 @@ body.is-loading {
 }
 
 /* =========================================================
-   FOOTBALL
-========================================================= */
-
-/*
-  Der Wrapper steuert ausschließlich die gleichmäßige
-  Bewegung von links nach rechts.
-*/
-.page-transition__football-wrap {
-  position: absolute;
-  top: 50%;
-  left: 0;
-
-  width: clamp(140px, 18vw, 300px);
-
-  transform: translateX(-140%);
-
-  will-change: transform;
-}
-
-/*
-  Das Football-Bild steuert ausschließlich die vertikale
-  Flugkurve. Dadurch bleibt die horizontale Geschwindigkeit
-  durchgehend konstant.
-*/
-.page-transition__football {
-  display: block;
-
-  width: 100%;
-  height: auto;
-
-  transform: translateY(90px) rotate(6deg);
-
-  filter:
-    drop-shadow(0 22px 22px rgba(0, 0, 0, 0.38))
-    drop-shadow(0 0 18px rgba(196, 161, 95, 0.18));
-
-  will-change: transform;
-}
-
-/* =========================================================
    GOLDENE LINIE
 ========================================================= */
 
@@ -1947,31 +1907,6 @@ body.is-loading {
 /* =========================================================
    INTRO-ANIMATION
 ========================================================= */
-
-/*
-  Gleichmäßige horizontale Bewegung.
-  linear verhindert jegliches Abbremsen.
-*/
-.page-transition.is-entering .page-transition__football-wrap {
-  animation:
-    transition-football-x
-    1.75s
-    linear
-    0.15s
-    forwards;
-}
-
-/*
-  Unabhängige vertikale Flugkurve.
-*/
-.page-transition.is-entering .page-transition__football {
-  animation:
-    transition-football-y
-    1.75s
-    linear
-    0.15s
-    forwards;
-}
 
 .page-transition.is-entering .page-transition__title {
   animation:
@@ -2022,91 +1957,6 @@ body.is-loading {
     cubic-bezier(0.2, 0.75, 0.25, 1)
     0.28s
     forwards;
-}
-
-.page-transition.is-leaving .page-transition__football-wrap {
-  animation:
-    transition-football-leave-x
-    0.85s
-    linear
-    0.08s
-    forwards;
-}
-
-.page-transition.is-leaving .page-transition__football {
-  animation:
-    transition-football-leave-y
-    0.85s
-    ease-out
-    0.08s
-    forwards;
-}
-
-/* =========================================================
-   KEYFRAMES – FOOTBALL
-========================================================= */
-
-/*
-  Ausschließlich horizontale Bewegung.
-  Dadurch kann der Ball auf seiner Flugkurve niemals
-  horizontal stoppen.
-*/
-@keyframes transition-football-x {
-  from {
-    transform: translateX(-140%);
-  }
-
-  to {
-    transform: translateX(calc(100vw + 30%));
-  }
-}
-
-/*
-  Vertikale Flugkurve.
-
-  Start:  90px unterhalb der Mitte
-  Höhe:  -90px oberhalb der Mitte
-  Ende:   45px unterhalb der Mitte
-*/
-@keyframes transition-football-y {
-  0% {
-    transform: translateY(90px) rotate(6deg);
-    animation-timing-function:
-      cubic-bezier(0.15, 0.65, 0.35, 1);
-  }
-
-  55% {
-    transform: translateY(-90px) rotate(6deg);
-    animation-timing-function:
-      cubic-bezier(0.65, 0, 0.85, 0.35);
-  }
-
-  100% {
-    transform: translateY(45px) rotate(6deg);
-  }
-}
-
-/*
-  Football beim Seitenwechsel.
-*/
-@keyframes transition-football-leave-x {
-  from {
-    transform: translateX(-140%);
-  }
-
-  to {
-    transform: translateX(calc(52vw - 50%));
-  }
-}
-
-@keyframes transition-football-leave-y {
-  from {
-    transform: translateY(70px) rotate(6deg);
-  }
-
-  to {
-    transform: translateY(-30px) rotate(6deg);
-  }
 }
 
 /* =========================================================
@@ -2307,4 +2157,276 @@ body.is-loading {
     opacity: 0;
     visibility: hidden;
   }
+}
+
+/* =========================================================
+   RESPONSIVE MASTER OVERRIDES — 2026
+   Phone / Tablet / MacBook / Desktop
+========================================================= */
+
+:root {
+  --page-pad: clamp(18px, 5vw, 90px);
+  --header-h: 104px;
+}
+
+html { scroll-padding-top: var(--header-h); }
+img { max-width: 100%; }
+.site-header, main, footer { isolation: isolate; }
+.section { padding-inline: var(--page-pad); }
+
+/* Header: keep desktop layout stable until it really gets tight */
+.site-header { min-height: var(--header-h); }
+.brand { flex: 0 0 auto; gap: clamp(10px, 1.2vw, 18px); }
+.brand img { width: clamp(54px, 4.2vw, 80px); }
+.brand span { font-size: clamp(.72rem, .9vw, 1rem); }
+.nav-center { gap: clamp(16px, 2vw, 34px); }
+.nav-right { gap: clamp(10px, 1.2vw, 18px); }
+.main-nav a { font-size: clamp(.72rem, .82vw, 1rem); }
+.nav-btn { padding: 10px clamp(14px, 1.3vw, 22px); }
+
+/* Hero: football is always contained inside its own visual stage */
+.hero {
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + 34px);
+  padding-bottom: clamp(54px, 6vw, 100px);
+  grid-template-columns: minmax(0, .92fr) minmax(360px, 1.08fr);
+  gap: clamp(20px, 3vw, 64px);
+  overflow: hidden;
+}
+.hero-copy { position: relative; z-index: 2; min-width: 0; }
+.hero h1 { font-size: clamp(4.4rem, 9.2vw, 10.5rem); }
+.hero-card {
+  width: min(100%, 920px);
+  min-width: 0;
+  aspect-ratio: 1.22 / 1;
+  display: grid;
+  place-items: center;
+  justify-self: stretch;
+  transform: none;
+  perspective: 1200px;
+  overflow: visible;
+  touch-action: pan-y;
+}
+.hero-card img {
+  display: block;
+  width: min(100%, 920px);
+  max-width: 100%;
+  max-height: min(76svh, 820px);
+  height: auto;
+  object-fit: contain;
+  transform-origin: center;
+  transition: transform .12s ease-out;
+  filter: drop-shadow(0 32px 36px rgba(0,0,0,.28));
+}
+.hero-banner { padding: clamp(18px, 2vw, 28px) clamp(28px, 5vw, 100px); }
+
+/* Content widths / typography */
+.content h2, .section-title h2, .training h2, .signup h2 { font-size: clamp(2.7rem, 6vw, 6.8rem); }
+.split { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(34px, 5vw, 70px); }
+.main-img { height: auto; }
+
+/* Roster scales progressively instead of jumping 8 -> 2 */
+.roster-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: clamp(28px, 3vw, 52px) clamp(18px, 2.4vw, 44px); }
+
+/* Field keeps its landscape proportions and can scroll on narrow screens */
+.field { width: 100%; aspect-ratio: 1100 / 560; min-height: 0; }
+
+/* Game card */
+.next-game-card { grid-template-columns: minmax(360px, 42%) minmax(0, 58%); min-height: clamp(520px, 48vw, 700px); }
+.game-image { min-height: 100%; }
+.game-date-card { max-width: 100%; }
+.game-date-card .day { font-size: clamp(4.8rem, 6vw, 7rem); }
+
+/* Footer should never overflow because of logos */
+.footer-content { width: min(100%, 1400px); max-width: 1400px; gap: clamp(34px, 5vw, 80px); }
+.footer-logo { width: min(220px, 100%); }
+.league-logos img { max-width: 100%; }
+
+/* ---------- Laptop / small desktop ---------- */
+@media (max-width: 1366px) {
+  :root { --header-h: 92px; }
+  .site-header { padding-block: 12px; }
+  .nav-center { position: static; transform: none; margin-left: auto; margin-right: clamp(16px, 2vw, 30px); }
+  .main-nav { justify-content: flex-end; }
+  .hero { grid-template-columns: minmax(0, .95fr) minmax(330px, 1.05fr); }
+  .hero h1 { font-size: clamp(4rem, 8.8vw, 8.2rem); }
+  .roster-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .training-cards strong { font-size: clamp(2.7rem, 4.2vw, 4.4rem); }
+}
+
+/* ---------- Tablet landscape / compact laptop ---------- */
+@media (max-width: 1100px) {
+  :root { --header-h: 82px; --page-pad: clamp(20px, 4vw, 48px); }
+  .brand img { width: 58px; }
+  .brand span { display: none; }
+  .nav-toggle {
+    display: grid; place-items: center; width: 48px; height: 48px;
+    border: 1px solid rgba(255,255,255,.22); border-radius: 50%;
+    background: rgba(10,10,10,.36); color: #fff; font-size: 1.45rem; cursor: pointer;
+  }
+  .main-nav {
+    position: fixed; top: calc(var(--header-h) - 4px); right: var(--page-pad); left: var(--page-pad);
+    display: none; flex-direction: column; align-items: stretch; padding: 26px;
+    border: 1px solid rgba(196,161,95,.25); border-radius: 22px;
+    background: rgba(15,8,8,.97); backdrop-filter: blur(18px); box-shadow: 0 24px 70px rgba(0,0,0,.45);
+  }
+  .main-nav.open { display: flex; }
+  .nav-center { position: static; transform: none; margin: 0; }
+  .nav-center, .nav-right { flex-direction: column; align-items: stretch; gap: 0; }
+  .nav-right { margin: 14px 0 0; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.1); }
+  .main-nav a { display: block; padding: 12px 4px; font-size: .9rem; }
+  .nav-btn { margin-top: 8px; text-align: center; }
+
+  .hero {
+    min-height: auto;
+    grid-template-columns: minmax(0, .95fr) minmax(330px, 1.05fr);
+    padding-top: calc(var(--header-h) + 70px);
+  }
+  .hero h1 { font-size: clamp(4.2rem, 9vw, 7rem); }
+  .hero-card img { max-height: 600px; }
+  .roster-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .next-game-card { grid-template-columns: 1fr 1fr; }
+  .game-date-card { gap: 18px; padding: 18px 24px; }
+  .game-date-card .weekday { margin-left: 4px; padding-left: 14px; }
+  .footer-content { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- Tablet portrait ---------- */
+@media (max-width: 900px) {
+  .section { padding-block: clamp(72px, 10vw, 100px); }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: left;
+    padding-top: calc(var(--header-h) + 54px);
+  }
+  .hero-copy { max-width: 760px; }
+  .hero h1 { font-size: clamp(4.8rem, 16vw, 8.4rem); }
+  .lead { max-width: 680px; }
+  .hero-card {
+    width: min(100%, 720px);
+    aspect-ratio: 1.5 / 1;
+    justify-self: center;
+    margin-top: -2vw;
+  }
+  .hero-card img { width: min(100%, 720px); max-height: 54svh; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .split { grid-template-columns: 1fr; }
+  .image-stack { max-width: 760px; }
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  .roster-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .training-cards { grid-template-columns: repeat(2, 1fr); }
+  .training-cards article:last-child { grid-column: 1 / -1; }
+  .next-game-card { grid-template-columns: 1fr; }
+  .game-image { min-height: 440px; order: -1; }
+  .game-image img { aspect-ratio: 16 / 9; }
+  .gallery-grid { column-count: 2; }
+  .gallery-heading { grid-template-columns: 1fr; }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 600px) {
+  :root { --header-h: 72px; --page-pad: 18px; }
+  .site-header { padding: 10px 18px; }
+  .brand img { width: 50px; }
+  .nav-toggle { width: 44px; height: 44px; }
+  .main-nav { right: 14px; left: 14px; padding: 20px; }
+
+  .hero {
+    min-height: 100svh;
+    padding-top: calc(var(--header-h) + 40px);
+    padding-bottom: 44px;
+    gap: 12px;
+    background: radial-gradient(circle at 20% 15%, rgba(196,161,95,.24), transparent 30%), linear-gradient(150deg,#140607 0%,#0b0b0d 56%,#5f0508 100%);
+  }
+  .hero .eyebrow { visibility: hidden; font-size: .72rem; line-height: 1.55; letter-spacing: .18em; }
+  .hero h1 { font-size: clamp(4rem, 22vw, 4.2rem); line-height: .9; }
+  .lead { font-size: 0.9rem; line-height: 1.55; }
+  .hero-banner { width: 100%; margin-top: 10px; padding: 18px 22px; border-radius: 0 999px 999px 0; }
+  .hero-banner a { font-size: .78rem; }
+  .hero-card {
+    width: 100%;
+    aspect-ratio: 1.35 / 1;
+    margin: -6px auto 0;
+    overflow: visible;
+  }
+  .hero-card img {
+    width: 100%;
+    max-height: 42svh;
+    object-fit: contain;
+  }
+
+  .stats { grid-template-columns: 1fr 1fr; }
+  .stats div { padding: 24px 12px; }
+  .stats span { font-size: .72rem; }
+  .content h2, .section-title h2, .training h2, .signup h2 { font-size: clamp(2.65rem, 14vw, 4.4rem); }
+  .feature-grid { grid-template-columns: 1fr; }
+  .roster::before {background: radial-gradient(circle at 88% 8%, rgba(196, 161, 95, 0.24), transparent 28%);
+}
+  .roster-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 14px; }
+  .roster-card img { aspect-ratio: 1 / 1.18; }
+  .roster-card h3 { margin-top: 14px; }
+
+  /* Field becomes a horizontally scrollable mini-canvas instead of crushing labels */
+  .playbook { overflow: hidden; }
+  .field {
+    width: 760px;
+    max-width: none;
+    height: 390px;
+    aspect-ratio: auto;
+    transform-origin: top left;
+  }
+  .playbook .field { margin-left: 0; }
+  .playbook::after { content: "← Spielfeld horizontal bewegen →"; display: block; margin-top: 14px; color: #bfb39a; text-align: center; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+  .playbook { overflow-x: auto; overscroll-behavior-inline: contain; }
+  .field-player { width: 48px; height: 48px; font-size: .75rem; }
+  .field-player span { width: 180px; }
+
+  .training-cards { grid-template-columns: 1fr; }
+  .training-cards article:last-child { grid-column: auto; }
+  .training-cards strong { font-size: clamp(2.6rem, 13vw, 4rem); }
+  .next-game-card { border-radius: 24px; }
+  .game-image { min-height: 0; }
+  .game-image img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+  .next-game-content { padding: 30px 22px 38px; }
+  .game-date-card { width: 100%; gap: 14px; margin: 26px 0 32px; padding: 16px 16px; border-left-width: 4px; }
+  .game-date-card .day { font-size: 4.5rem; }
+  .game-date-card .month span:first-child { font-size: 1.15rem; }
+  .game-date-card .weekday { font-size: .72rem; }
+  .next-game-content h2 { font-size: clamp(2.7rem, 13vw, 4.5rem); }
+  .results-marquee { margin-top: 46px; }
+  .gallery-grid { column-count: 1; }
+  .gallery-item { border-radius: 18px; }
+  .signup-contact-main { overflow-wrap: anywhere; }
+  .footer-content { grid-template-columns: 1fr; padding: 54px 22px 34px; gap: 38px; }
+  .league-logos { gap: 14px; }
+  .league-logos img { height: 58px; }
+}
+
+/* Very narrow phones */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 3.75rem; }
+  .hero-card img { max-height: 36svh; }
+  .stats { grid-template-columns: 1fr; }
+  .roster-grid { grid-template-columns: 1fr; }
+  .roster-card { max-width: 320px; margin-inline: auto; }
+  .game-date-card { flex-wrap: wrap; }
+  .game-date-card .weekday { width: 100%; margin-left: 0; padding: 10px 0 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.2); }
+}
+
+/* Touch devices: avoid hover-only assumptions and keep football movable */
+@media (hover: none) {
+  .hero-card img { transition: transform .08s linear; }
+  .gallery-item:hover img, .roster-card:hover { transform: none; }
+  .field-player:focus span { opacity: 1; }
+}
+
+/* Landscape phones: prevent the hero from becoming excessively tall */
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero { grid-template-columns: 1fr 1fr; min-height: 100svh; padding-top: calc(var(--header-h) + 18px); padding-bottom: 24px; }
+  .hero h1 { font-size: clamp(3.2rem, 10vw, 5rem); }
+  .hero .lead { font-size: .88rem; }
+  .hero-banner { margin-top: 16px; padding-block: 14px; }
+  .hero-card { aspect-ratio: 1.2 / 1; margin: 0; }
+  .hero-card img { max-height: 70svh; }
 }
