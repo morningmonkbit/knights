@@ -1,20 +1,15 @@
 /* =========================================================
-   PAGE TRANSITION / LOADING SCREEN
+   LANDINGPAGE OPENING ANIMATION
 ========================================================= */
 
-const pageTransition = document.querySelector("#page-transition");
-
-const TRANSITION_OUT_DURATION = 820;
-
-/*
-  Speichert, ob gerade ein Seitenwechsel durchgeführt wird.
-  Dadurch können doppelte Klicks keine mehrfachen Navigationen
-  auslösen.
-*/
-let pageIsLeaving = false;
+const pageTransition =
+  document.querySelector("#page-transition");
 
 /*
-  Startanimation beim ersten Laden der Seite.
+  Die Animation existiert nur auf der Landingpage.
+
+  Wenn #page-transition nicht vorhanden ist,
+  passiert einfach nichts.
 */
 function playPageIntro() {
   if (!pageTransition) {
@@ -22,199 +17,92 @@ function playPageIntro() {
     return;
   }
 
-  pageTransition.classList.remove("is-leaving");
-  pageTransition.classList.add("is-entering");
-
   /*
-    Scrollen wird wieder erlaubt, sobald der Screen beginnt,
-    die Website freizugeben.
-  */
-  window.setTimeout(() => {
-    document.body.classList.remove("is-loading");
-  }, 2200);
-
-  /*
-    Nach dem Ende wird die Intro-Klasse entfernt.
-    Der Screen bleibt durch das letzte Keyframe rechts außerhalb.
-  */
-  window.setTimeout(() => {
-    pageTransition.classList.remove("is-entering");
-    pageTransition.style.visibility = "hidden";
-    pageTransition.style.transform = "translateX(100%)";
-    pageTransition.style.pointerEvents = "none";
-  }, 3100);
-}
-
-/*
-  Prüft, ob ein Link einen richtigen Seitenwechsel auslösen soll.
-*/
-function shouldUsePageTransition(link, event) {
-  if (!link) return false;
-
-  const href = link.getAttribute("href");
-
-  /*
-    Keine Animation bei Links ohne Ziel.
-  */
-  if (!href || href.trim() === "") return false;
-
-  /*
-    Keine Animation bei bereits verhindertem Klick.
-  */
-  if (event.defaultPrevented) return false;
-
-  /*
-    Keine Animation bei Strg-, Cmd-, Shift- oder Alt-Klick.
-    Dadurch kann weiterhin ein neuer Tab geöffnet werden.
-  */
-  if (
-    event.ctrlKey ||
-    event.metaKey ||
-    event.shiftKey ||
-    event.altKey
-  ) {
-    return false;
-  }
-
-  /*
-    Nur die linke Maustaste behandeln.
-  */
-  if (event.button !== 0) return false;
-
-  /*
-    Keine Animation für Downloads.
-  */
-  if (link.hasAttribute("download")) return false;
-
-  /*
-    Keine Animation bei target="_blank".
-  */
-  if (link.target === "_blank") return false;
-
-  /*
-    Keine Animation für Mail- und Telefonlinks.
-  */
-  if (
-    href.startsWith("mailto:") ||
-    href.startsWith("tel:")
-  ) {
-    return false;
-  }
-
-  /*
-    Reine Sprunglinks wie #team oder #spiele bleiben normal.
-  */
-  if (href.startsWith("#")) return false;
-
-  let targetUrl;
-
-  try {
-    targetUrl = new URL(link.href, window.location.href);
-  } catch (error) {
-    return false;
-  }
-
-  /*
-    Externe Websites werden nicht abgefangen.
-  */
-  if (targetUrl.origin !== window.location.origin) {
-    return false;
-  }
-
-  /*
-    Ein Link auf exakt dieselbe URL benötigt keinen Übergang.
-  */
-  if (targetUrl.href === window.location.href) {
-    return false;
-  }
-
-  /*
-    Nur ein anderer Hash auf derselben Seite ist ebenfalls
-    lediglich ein interner Sprung.
-  */
-  const currentUrl = new URL(window.location.href);
-
-  const sameDocument =
-    targetUrl.origin === currentUrl.origin &&
-    targetUrl.pathname === currentUrl.pathname &&
-    targetUrl.search === currentUrl.search;
-
-  if (sameDocument && targetUrl.hash) {
-    return false;
-  }
-
-  return true;
-}
-
-/*
-  Übergang vor einem Wechsel zu einer anderen HTML-Seite.
-*/
-function playPageOutro(targetUrl) {
-  if (!pageTransition || pageIsLeaving) return;
-
-  pageIsLeaving = true;
-
-  document.body.classList.add("is-loading");
-
-  /*
-    Alte Inline-Werte der Introanimation entfernen.
+    Startzustand herstellen.
   */
   pageTransition.removeAttribute("style");
 
-  pageTransition.classList.remove("is-entering");
-  pageTransition.classList.add("is-leaving");
-
-  /*
-    Die neue Seite wird erst geöffnet, nachdem der rote Screen
-    das Browserfenster vollständig bedeckt.
-  */
-  window.setTimeout(() => {
-    window.location.href = targetUrl;
-  }, TRANSITION_OUT_DURATION);
-}
-
-/*
-  Klicks auf interne HTML-Seiten zentral abfangen.
-*/
-document.addEventListener("click", (event) => {
-  const link = event.target.closest("a");
-
-  if (!shouldUsePageTransition(link, event)) return;
-
-  event.preventDefault();
-
-  playPageOutro(link.href);
-});
-
-/*
-  Animation starten, wenn das DOM bereit ist.
-*/
-document.addEventListener("DOMContentLoaded", () => {
-  playPageIntro();
-});
-
-/*
-  Wichtig für den Browser-Zurück-Button.
-  Manche Browser laden eine Seite aus dem Back-Forward-Cache,
-  ohne DOMContentLoaded erneut auszuführen.
-*/
-window.addEventListener("pageshow", (event) => {
-  if (!event.persisted) return;
-
-  pageIsLeaving = false;
-  document.body.classList.remove("is-loading");
-
-  if (!pageTransition) return;
-
   pageTransition.classList.remove(
-    "is-entering",
     "is-leaving"
   );
 
-  pageTransition.style.visibility = "hidden";
-  pageTransition.style.transform = "translateX(100%)";
-  pageTransition.style.pointerEvents = "none";
-});
+  pageTransition.classList.add(
+    "is-entering"
+  );
+
+  /*
+    Scrollen wieder erlauben, sobald die
+    Landingpage sichtbar wird.
+  */
+  window.setTimeout(() => {
+    document.body.classList.remove(
+      "is-loading"
+    );
+  }, 2200);
+
+  /*
+    Transition nach Ende vollständig deaktivieren.
+  */
+  window.setTimeout(() => {
+    pageTransition.classList.remove(
+      "is-entering"
+    );
+
+    pageTransition.style.visibility =
+      "hidden";
+
+    pageTransition.style.transform =
+      "translateX(100%)";
+
+    pageTransition.style.pointerEvents =
+      "none";
+  }, 3100);
+}
+
+
+/*
+  Animation starten, sobald die Landingpage
+  geladen wurde.
+*/
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    playPageIntro();
+  }
+);
+
+
+/*
+  Falls die Landingpage über den Zurück-Button
+  aus dem Browser-Cache wiederhergestellt wird,
+  soll kein Transition-Screen hängen bleiben.
+*/
+window.addEventListener(
+  "pageshow",
+  (event) => {
+    if (!event.persisted) return;
+
+    document.body.classList.remove(
+      "is-loading"
+    );
+
+    if (!pageTransition) return;
+
+    pageTransition.classList.remove(
+      "is-entering",
+      "is-leaving"
+    );
+
+    pageTransition.style.visibility =
+      "hidden";
+
+    pageTransition.style.transform =
+      "translateX(100%)";
+
+    pageTransition.style.pointerEvents =
+      "none";
+  }
+);
 
 
 /* =========================================================
