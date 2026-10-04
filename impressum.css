@@ -96,7 +96,7 @@
   font-family: Anton, Impact, sans-serif;
 
   font-size: clamp(5rem, 13vw, 12rem);
-  line-height: 0.82;
+  line-height: 1;
 
   letter-spacing: 0.025em;
   text-transform: uppercase;
@@ -187,7 +187,7 @@
   font-family: Anton, Impact, sans-serif;
 
   font-size: clamp(3rem, 7vw, 7rem);
-  line-height: 0.92;
+  line-height: 1.2;
 
   letter-spacing: 0.025em;
   text-transform: uppercase;
@@ -297,7 +297,7 @@
   font-family: Anton, Impact, sans-serif;
 
   font-size: clamp(2rem, 3.5vw, 3.8rem);
-  line-height: 0.95;
+  line-height: 1.2;
 
   letter-spacing: 0.025em;
   text-transform: uppercase;
@@ -621,7 +621,7 @@
     font-size:
       clamp(2.8rem, 14vw, 4.5rem);
 
-    line-height: 0.86;
+    line-height: 1;
 
     overflow-wrap: normal;
     word-break: normal;
@@ -662,7 +662,7 @@
     font-size:
       clamp(2.8rem, 14vw, 4.5rem);
 
-    line-height: 0.94;
+    line-height: 1.2;
   }
 
 

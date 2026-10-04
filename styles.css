@@ -170,7 +170,7 @@ body {
 .signup h2 {
   margin: 0 0 22px;
   font-family: Anton, Impact, sans-serif;
-  line-height: 0.92;
+  line-height: 1;
   letter-spacing: 0.025em;
   text-transform: uppercase;
 }
@@ -295,7 +295,6 @@ body {
 }
 
 .btn:hover {
-  transform: translateY(-3px);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
@@ -792,7 +791,7 @@ body {
   margin: 0 0 20px;
   font-family: Anton, Impact, sans-serif;
   font-size: clamp(3rem, 7vw, 6.5rem);
-  line-height: 0.92;
+  line-height: 1;
   letter-spacing: 0.025em;
   text-transform: uppercase;
 }
@@ -1071,7 +1070,7 @@ body {
   margin: 0;
   font-family: Anton, Impact, sans-serif;
   font-size: clamp(3.6rem, 8vw, 7.5rem);
-  line-height: 0.9;
+  line-height: 1;
   letter-spacing: 0.025em;
   text-transform: uppercase;
 }
@@ -2050,7 +2049,7 @@ body.is-loading {
 
   .page-transition__title {
     font-size: clamp(2.7rem, 15vw, 5rem);
-    line-height: 0.95;
+    line-height: 1;
     white-space: normal;
   }
 
@@ -2243,7 +2242,7 @@ img { max-width: 100%; }
 .league-logos img { max-width: 100%; }
 
 /* ---------- Laptop / small desktop ---------- */
-@media (max-width: 1366px) {
+@media (max-width: 1440px) {
   :root { --header-h: 92px; }
   .site-header { padding-block: 12px; }
   .nav-center { position: static; transform: none; margin-left: auto; margin-right: clamp(16px, 2vw, 30px); }
@@ -2253,6 +2252,81 @@ img { max-width: 100%; }
   .roster-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .training-cards strong { font-size: clamp(2.7rem, 4.2vw, 4.4rem); }
   .field-scroll {width: 100%;}
+  .next-game-card {
+    grid-template-columns: minmax(0, 56%) minmax(0, 44%);
+    min-height: 560px;
+  }
+
+  /* Textbereich darf nicht vom Bild überlagert werden */
+  .next-game-content {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+    padding: 42px 32px;
+  }
+
+  /* Bild bleibt sauber in seiner eigenen Spalte */
+  .game-image {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    min-height: 560px;
+  }
+
+  .game-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  /* Datum kompakter machen */
+  .game-date-card {
+    width: 100%;
+    max-width: 100%;
+
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+
+    gap: 18px;
+
+    margin: 28px 0 36px;
+    padding: 18px 22px;
+
+    border-left-width: 5px;
+  }
+
+  /* 24 etwas kleiner */
+  .game-date-card .day {
+    font-size: clamp(4.5rem, 8vw, 6rem);
+  }
+
+  /* Oktober + 2026 */
+  .game-date-card .month {
+    min-width: 0;
+  }
+
+  .game-date-card .month span:first-child {
+    font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+  }
+
+  /* Samstag bleibt garantiert sichtbar */
+  .game-date-card .weekday {
+    min-width: 0;
+
+    margin-left: 0;
+    padding-left: 16px;
+
+    font-size: clamp(.7rem, 1.3vw, .9rem);
+    white-space: nowrap;
+  }
+
+  /* Gegner-Headline an Tabletbreite anpassen */
+  .next-game-content h2 {
+    max-width: 100%;
+    font-size: clamp(3.2rem, 6.8vw, 5rem);
+  }
 }
 
 /* ---------- Tablet landscape / compact laptop ---------- */
@@ -2287,9 +2361,65 @@ img { max-width: 100%; }
   .hero-card img { max-height: 600px; }
   .roster-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .field-scroll {width: 100%;}
-  .next-game-card { grid-template-columns: 1fr 1fr; }
-  .game-date-card { gap: 18px; padding: 18px 24px; }
-  .game-date-card .weekday { margin-left: 4px; padding-left: 14px; }
+  .next-game-card {
+    grid-template-columns: minmax(0, 56%) minmax(0, 44%);
+    min-height: 560px;
+  }
+  .next-game-content {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+    padding: 42px 32px;
+  }
+  .game-image {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    min-height: 560px;
+  }
+  .game-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+  .game-date-card {
+    width: 100%;
+    max-width: 100%;
+
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+
+    gap: 18px;
+
+    margin: 28px 0 36px;
+    padding: 18px 22px;
+
+    border-left-width: 5px;
+  }
+  .game-date-card .day {
+    font-size: clamp(4.5rem, 8vw, 6rem);
+  }
+  .game-date-card .month {
+    min-width: 0;
+  }
+  .game-date-card .month span:first-child {
+    font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+  }
+  .game-date-card .weekday {
+    min-width: 0;
+
+    margin-left: 0;
+    padding-left: 16px;
+
+    font-size: clamp(.7rem, 1.3vw, .9rem);
+    white-space: nowrap;
+  }
+  .next-game-content h2 {
+    max-width: 100%;
+    font-size: clamp(3.2rem, 6.8vw, 5rem);
+  }
   .footer-content { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
