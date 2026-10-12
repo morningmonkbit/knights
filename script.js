@@ -554,3 +554,88 @@ if (heroCard && heroImg) {
     releaseFootball
   );
 }
+
+/* =========================================================
+   SMOOTH SECTION NAVIGATION
+   Scrollt zu Sections, ohne #id in die URL zu schreiben
+========================================================= */
+
+document.querySelectorAll("[data-scroll-to]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const targetId = link.dataset.scrollTo;
+    const target = document.getElementById(targetId);
+
+    if (!target) return;
+
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    // Mobile Navigation schließen
+    if (nav) {
+      nav.classList.remove("open");
+    }
+
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
+});
+
+/* =========================================================
+   NAVIGATION ZWISCHEN SEITEN OHNE URL-HASH
+========================================================= */
+
+/*
+  Links von Unterseiten wie Impressum oder Datenschutz
+  speichern das gewünschte Scroll-Ziel und öffnen danach
+  die Landingpage.
+*/
+document.querySelectorAll("[data-page-scroll]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const targetId = link.dataset.pageScroll;
+
+    if (!targetId) return;
+
+    sessionStorage.setItem("scrollTarget", targetId);
+
+    window.location.href = link.getAttribute("href");
+  });
+});
+
+
+/*
+  Nach dem Öffnen der Landingpage prüfen wir,
+  ob ein Scroll-Ziel gespeichert wurde.
+*/
+window.addEventListener("DOMContentLoaded", () => {
+  const targetId = sessionStorage.getItem("scrollTarget");
+
+  if (!targetId) return;
+
+  const target = document.getElementById(targetId);
+
+  if (!target) return;
+
+  /*
+    Ziel sofort löschen, damit ein späteres Neuladen
+    nicht erneut dorthin scrollt.
+  */
+  sessionStorage.removeItem("scrollTarget");
+
+  /*
+    Kleine Verzögerung, damit die Seite vollständig
+    aufgebaut ist.
+  */
+  window.setTimeout(() => {
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }, 150);
+});

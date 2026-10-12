@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# index.html aus der URL entfernen (Root-Verzeichnis)
+RewriteCond %{THE_REQUEST} \s/+(?:index\.html?)\s [NC]
+RewriteRule ^(.*)index\.html?$ /$1 [R=301,L]
+
+# Impressum ohne .html
+RewriteRule ^impressum$ impressum.html [L]
+
+# Datenschutz ohne .html (optional)
+RewriteRule ^datenschutz$ datenschutz.html [L]
